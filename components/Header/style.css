@@ -1,0 +1,19 @@
+nav {
+    background-color:var(--background-lighter);
+    padding:1rem;
+    color: var(--text1);
+    text-align:center;
+}
+
+nav h1 {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+nav span {
+    display:block;
+}
+
+nav a {
+    color: var(--accent);
+}

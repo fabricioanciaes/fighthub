@@ -1,0 +1,9 @@
+.card {
+    background-color: var(--background-lighter);
+    border-radius: calc(var(--spacer)/2);
+}
+
+.card .title {
+    background-color: var(--text5);
+    
+}
