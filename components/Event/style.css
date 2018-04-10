@@ -5,5 +5,8 @@
 
 .card .title {
     background-color: var(--text5);
-    
+}
+
+.card .ayy {
+    color: red;
 }

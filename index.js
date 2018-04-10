@@ -10,7 +10,6 @@ export default class App extends Component {
 			<div>
 				<Header></Header>
 				<Event></Event>
-				<Button href="http://google.com/">Ayy</Button>
 			</div>
 		);
 	}

@@ -4,7 +4,7 @@ import style from './style.css';
 export default () => {
     return (
         <div>
-            <div class={style.card}>
+            <div class={style['card']}>
                 <div class={style.title}>
                     <h2>Stun City Mondays: Non-Capcom ayy</h2>
                 </div>
