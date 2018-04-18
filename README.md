@@ -1,26 +1,9 @@
-# gatsby-starter-default
-The default Gatsby starter.
+<p align="center">
+  <img width="256" height="256" src="./src/images/icon.png">
+</p>
 
-For an overview of the project structure please refer to the [Gatsby documentation - Building with Components](https://www.gatsbyjs.org/docs/building-with-components/).
+<h1 align="center">Fighthub</h1>
+<p align="center">Um pequeno site/PWA feito em react para listar os eventos do fighthub, um calendário público de eventos da comunidade brasileira de jogos de luta.</p>
+<a href="https://fighthub.netlify.com" style="background-color:#33374c; padding: 8px; border-radius: 4px; box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.20); margin-bottom: 1rem; text-decoration:none; color:rgba(255,255,255,0.8); max-width:320px; text-align:center; margin-left: auto; margin-right:auto;display:block;">Clique aqui para acessar o site</a>
 
-## Install
-
-Make sure that you have the Gatsby CLI program installed:
-```sh
-npm install --global gatsby-cli
-```
-
-And run from your CLI:
-```sh
-gatsby new gatsby-example-site
-```
-
-Then you can run it by:
-```sh
-cd gatsby-example-site
-npm run develop
-```
-
-## Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+---
