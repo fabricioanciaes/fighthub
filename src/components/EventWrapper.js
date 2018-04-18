@@ -38,6 +38,7 @@ const Error = styled.div`
     padding: ${props => props.theme.xl};
     color: ${props => props.theme.text};
     box-shadow: ${props => props.theme.shadow};
+    width: calc(100% - ${props => props.theme.nm});
     max-width:40rem;
     border-radius: ${props => props.theme.borderRadius};
     margin-left: auto;
