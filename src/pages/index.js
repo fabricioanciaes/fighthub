@@ -39,7 +39,7 @@ const Error = styled.div`
     color: ${props => props.theme.text};
     box-shadow: ${props => props.theme.shadow};
     max-width:40rem;
-    border-radius: ${props => props.theme.borderRadius}
+    border-radius: ${props => props.theme.borderRadius};
     margin-left: auto;
     margin-right: auto;
     margin-top: ${props => props.theme.xl};
