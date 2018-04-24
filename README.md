@@ -5,7 +5,9 @@
 <h1 align="center">Fighthub</h1>
 <p align="center">Um pequeno site/PWA feito em react para listar os eventos do fighthub, um calendário público de eventos da comunidade brasileira de jogos de luta.</p>
 
-<center>[https://fighthub.netlify.com](https://fighthub.netlify.com)</center>
+<p align="center" style="width:100%; text-align:center;">
+  <a href="https://fighthub.netlify.com">https://fighthub.netlify.com</a>
+</p>
 ---
 
 # To-do
