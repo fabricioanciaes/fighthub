@@ -89,12 +89,35 @@ export default class Card extends React.Component {
     }
 
     componentDidMount() {
-        this.setState((props) => ({
-            streamLink: this.props.event.description.match(/http(?:s)?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)/gi),
-            happening: moment().isBetween(this.props.event.start.dateTime, this.props.event.end.dateTime),
-            today: moment().isSame(this.props.event.start.dateTime, 'day'),
-            week: moment().isSame(this.props.event.start.dateTime, 'week'),
-        }))
+        if(this.props.event.start.date && this.props.event.end.date) {
+          this.setState({
+            startDate: this.props.event.start.date,
+            endDate: this.props.event.end.date
+          })
+        }
+
+        if(this.props.event.start.dateTime && this.props.event.end.dateTime) {
+          this.setState(props => ({
+            startDate: this.props.event.start.dateTime,
+            endDate: this.props.event.end.dateTime
+          }))
+        }
+
+        this.setState({
+          happening: moment().isBetween(this.state.startDate , this.state.endDate),
+          today: moment().isSame(this.state.startDate, 'day'),
+          week: moment().isSame(this.state.startDate, 'week'),
+        })
+        
+
+        if(this.props.event.description){
+          this.setState(props => ({
+            streamLink: this.props.event.description.match(
+              /http(?:s)?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)/gi
+            ),
+          }))
+          
+        }
     }
 
     
@@ -110,10 +133,10 @@ export default class Card extends React.Component {
             <Actions>
               <Dates>
                 <Date>
-                  {moment(this.props.event.start.dateTime).format('ddd, DD/MM/YYYY')}
+                  {moment(this.state.startDate).format('ddd, DD/MM/YYYY')}
                 </Date>
                 <Interval>
-                  {this.state.happening ? 'Acaba ' + moment(this.props.event.end.dateTime).fromNow() : moment(this.props.event.start.dateTime).fromNow()}
+                  {this.state.happening ? 'Acaba ' + moment(this.state.endDate).fromNow() : moment(this.state.startDate).fromNow()}
                 </Interval>
               </Dates>
               <Controls>
