@@ -1,7 +1,7 @@
 <script>
 export default {
-  name: 'Navigation',
-  data: function() {
+  name: 'AppNavigation',
+  data: () => {
     return {
       items: [
         {id: 1, label: 'Eventos', url: '#eventos'},
@@ -19,7 +19,7 @@ export default {
       Logo
     </div>
     <ul>
-      <li v-for="item in items" :key="item.id" :item="item">
+      <li v-for="item in items" :key="item.id">
         <a :href="item.url"> {{ item.label }}</a>
       </li>
     </ul>

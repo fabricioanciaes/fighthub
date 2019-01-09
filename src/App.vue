@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <Navigation></Navigation>
+    <AppNavigation></AppNavigation>
   </div>
 </template>
 
 <script>
 
-import Navigation from './components/Navigation'
+import AppNavigation from './components/AppNavigation'
 
 export default {
   name: 'app',
   components: {
-    Navigation
+    AppNavigation
   }
 }
 </script>
