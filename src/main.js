@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios'
+import './assets/styles/global.scss';
 
 Vue.config.productionTip = false
 
@@ -11,7 +12,7 @@ Vue.config.productionTip = false
 */
 
 Vue.use({
-  install (Vue) {
+  install(Vue) {
     Vue.prototype.$api = axios.create({
       baseURL: 'http://fighthub-api.herokuapp.com'
     })

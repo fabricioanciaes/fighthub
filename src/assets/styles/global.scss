@@ -1,0 +1,23 @@
+@import '_variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-stack;
+  background-color: $bg2;
+}
+
+// Helper classes
+
+.container-fluid,
+.content {
+  width: calc(100% - $spacer*2);
+}
+
+.container {
+  max-width:960px;
+}
