@@ -97,12 +97,15 @@ $event-bg: $bg1;
 }
 
 .event .games {
+  $games: $light;
+
   margin: $spacer/2;
   display:flex;
   
   span {
     padding:$spacer/8 $spacer/2;
-    background-color: $accent;
+    background-color: $games;
+    color: color-contrast($games, $dark, $light);
     border-radius: 0.5rem;
     margin-right: $spacer/2;
   }
