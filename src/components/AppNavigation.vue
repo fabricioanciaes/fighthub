@@ -1,26 +1,24 @@
 <script>
 export default {
-  name: 'AppNavigation',
+  name: "AppNavigation",
   data: () => {
     return {
       items: [
-        {id: 1, label: 'Eventos', url: '#eventos'},
-        {id: 2, label: 'Sobre', url: '#sobre'},
-        {id: 3, label: 'Contribua', url: '#contribua'},
+        { id: 1, label: "Eventos", route: "/" },
+        { id: 2, label: "Sobre", route: "/sobre" },
+        { id: 3, label: "Contribua", route: "/contribua" }
       ]
-    }
+    };
   }
-}
+};
 </script>
 
 <template>
   <nav>
-    <div class="brand">
-      Logo
-    </div>
+    <div class="brand">Logo</div>
     <ul>
       <li v-for="item in items" :key="item.id">
-        <a :href="item.url"> {{ item.label }}</a>
+        <router-link :to="item.route">{{ item.label }}</router-link>
       </li>
     </ul>
   </nav>
@@ -29,8 +27,9 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/styles/_variables.scss";
 
-nav, nav a {
-  color: color-contrast($bg1, $dark, $light)
+nav,
+nav a {
+  color: color-contrast($bg1, $dark, $light);
 }
 
 nav {
@@ -42,22 +41,21 @@ nav {
 }
 
 ul {
-  display:flex;
-  list-style:none;
-  padding:0 $spacer/2;
-  flex-wrap:nowrap;
+  display: flex;
+  list-style: none;
+  padding: 0 $spacer/2;
+  flex-wrap: nowrap;
 }
 
 ul li {
-  margin:0 $spacer/2;
+  margin: 0 $spacer/2;
 }
 
 a {
-  text-decoration:none;
+  text-decoration: none;
 }
 
 .brand {
-  padding:$spacer/2;
+  padding: $spacer/2;
 }
-
 </style>

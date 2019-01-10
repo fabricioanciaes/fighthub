@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <AppNavigation></AppNavigation>
+    <AppNavigation />
+    <router-view />
   </div>
 </template>
 
 <script>
-
-import AppNavigation from './components/AppNavigation'
-
+import AppNavigation from "./components/AppNavigation";
 export default {
-  name: 'app',
-  components: {
-    AppNavigation
-  }
-}
+  name: "App",
+  components: { AppNavigation }
+};
 </script>
+
+<style lang="scss"></style>
