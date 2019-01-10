@@ -16,7 +16,6 @@ body {
 
 .container-fluid,
 .container {
-  margin-top:$spacer;
   width: calc(100% - #{$spacer*2});
   display:block;
   margin-left:auto;
