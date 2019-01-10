@@ -8,9 +8,13 @@ $success: #84CA6D;
 $warning: #FFE477;
 $danger: #E35A5A;
 
+$twitch: #6441A4;
+$discord: #7289DA;
+
 $font-stack: 'Segoe UI', sans-serif;
 $spacer: 1rem;
 
+$timing: cubic-bezier(.55, 0, .1, 1);
 
 // Material Shadows
 
@@ -117,5 +121,39 @@ $ambient-shadow-map: (1: 0 1px 3px 0 $ambient-shadow-colour,
 
   @else {
     @return $light;
+  }
+}
+
+// Button Mixin
+
+@mixin button-bg($bg) {
+  background: $bg;
+  color: color-contrast($bg, $dark, $light);
+
+  &:hover {
+    background: darken($bg, 8%);
+    transition: all 0.3s $timing;
+  }
+
+  &:active {
+    background: darken($bg, 25%);
+  }
+}
+
+@mixin button-outline($bg) {
+  border:1px solid $bg;
+  color: $bg;
+
+  &:hover {
+    background: $bg;
+    color: color-contrast($bg, $dark, $light);
+    transition: all 0.3s $timing;
+    outline:none;
+  }
+
+  &:active {
+    background: color-contrast($bg, lighten($bg,10%), darken($bg, 10%));
+    border-color: color-contrast($bg, lighten($bg, 10%), darken($bg, 10%));
+    outline:none;
   }
 }
