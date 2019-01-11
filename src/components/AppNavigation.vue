@@ -38,6 +38,13 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 999999;
+
+  @include shadow(6);
 }
 
 ul {

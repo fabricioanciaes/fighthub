@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <button @click="onClick"><slot>Button</slot></button>
+  <button><slot>Button</slot></button>
 </template>
 
 <style lang="scss" scoped>
