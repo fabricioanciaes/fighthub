@@ -15,7 +15,7 @@ export default {
 
 <template>
   <nav>
-    <div class="brand">Logo</div>
+    <router-link :to="'/'"> <div class="brand">Logo</div> </router-link>
     <ul>
       <li v-for="item in items" :key="item.id">
         <router-link :to="item.route">{{ item.label }}</router-link>

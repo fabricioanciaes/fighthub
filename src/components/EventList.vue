@@ -9,7 +9,7 @@ export default {
       events: [],
       loading: false,
       error: false,
-      apiUrl: "http://fighthub-api.herokuapp.com/events"
+      apiUrl: "http://fighthub-api.herokuapp.com/events?_limit=30"
     };
   },
   methods: {
@@ -46,13 +46,12 @@ export default {
 <template>
   <div>
     <div class="container error-wrapper">
-      <div v-if="loading">Carregando...</div>
+      <div v-if="loading"><VLoader /></div>
       <div v-if="error">
         Erro! Não conseguimos nos comunicar com o servidor, por favor tente de
         novo mais tarde.
       </div>
     </div>
-
     <div class="container wrapper" v-if="!error">
       <EventCard v-for="event in events" :key="event.id" :event="event" />
     </div>

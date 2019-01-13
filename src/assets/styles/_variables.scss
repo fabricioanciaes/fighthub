@@ -127,16 +127,22 @@ $ambient-shadow-map: (1: 0 1px 3px 0 $ambient-shadow-colour,
 // Button Mixin
 
 @mixin button-bg($bg) {
+  border:1px solid;
+  border-color: $bg;
   background: $bg;
   color: color-contrast($bg, $dark, $light);
 
   &:hover {
+    border-color:darken($bg, 8%);
     background: darken($bg, 8%);
     transition: all 0.3s $timing;
+    outline:none;
   }
 
   &:active {
+    border-color:darken($bg, 25%);
     background: darken($bg, 25%);
+    outline:none;
   }
 }
 
@@ -145,6 +151,7 @@ $ambient-shadow-map: (1: 0 1px 3px 0 $ambient-shadow-colour,
   color: $bg;
 
   &:hover {
+    border-color: $bg;
     background: $bg;
     color: color-contrast($bg, $dark, $light);
     transition: all 0.3s $timing;
@@ -152,6 +159,7 @@ $ambient-shadow-map: (1: 0 1px 3px 0 $ambient-shadow-colour,
   }
 
   &:active {
+    border-color: color-contrast($bg, lighten($bg,10%), darken($bg, 10%));
     background: color-contrast($bg, lighten($bg,10%), darken($bg, 10%));
     border-color: color-contrast($bg, lighten($bg, 10%), darken($bg, 10%));
     outline:none;

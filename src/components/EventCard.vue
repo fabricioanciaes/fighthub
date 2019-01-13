@@ -1,8 +1,7 @@
 <script>
-const dateFns = require("date-fns");
+import isWithinInterval from "date-fns/isWithinInterval";
+import formatRelative from "date-fns/formatRelative";
 import { ptBR } from "date-fns/locale";
-
-console.log(dateFns);
 
 import VButton from "@/components/VButton.vue";
 
@@ -15,7 +14,8 @@ export default {
       links: this.event.links.split(",").map(item => item.trim()),
       games: this.event.games.split(",").map(item => item.trim()),
       live: "",
-      dateString: ""
+      dateString: "",
+      streamUrl: ""
     };
   },
   components: {
@@ -23,35 +23,58 @@ export default {
   },
   methods: {
     isLive: function() {
-      let isLive = dateFns.isWithinInterval(new Date(Date.now()), {
+      let isLive = isWithinInterval(new Date(Date.now()), {
         start: new Date(this.event.dateStart),
         end: new Date(this.event.dateEnd)
       });
 
       isLive ? (this.live = true) : (this.live = false);
     },
+
     dateFormat: function() {
       if (this.live) {
         return (this.dateString =
           "Termina " +
-          dateFns.formatRelative(
-            new Date(this.event.dateEnd),
-            new Date(Date.now()),
-            { locale: ptBR }
-          ));
+          formatRelative(new Date(this.event.dateEnd), new Date(Date.now()), {
+            locale: ptBR
+          }));
       }
-      return (this.dateString =
-        "Começa " +
-        dateFns.formatRelative(
-          new Date(this.event.dateStart),
-          new Date(Date.now()),
-          { locale: ptBR }
-        ));
+      return (this.dateString = formatRelative(
+        new Date(this.event.dateStart),
+        new Date(Date.now()),
+        { locale: ptBR }
+      ));
+    },
+
+    handleStreams: function() {
+      function parseUrl(url) {
+        var a = document.createElement("a");
+        a.href = url;
+        return a;
+      }
+
+      let multistream = this.streams.reduce((result, url) => {
+        if (url.includes("twitch.tv")) {
+          result.push(parseUrl(url).pathname);
+        }
+        return result;
+      }, []);
+
+      console.log(multistream);
+
+      if (this.streams.length == 1) {
+        this.streamUrl = this.streams[0];
+      }
+
+      if (multistream.length > 1) {
+        this.streamUrl = "http://multitwitch.tv" + multistream.join("");
+      }
     }
   },
   mounted: function() {
     this.isLive();
     this.dateFormat();
+    this.handleStreams();
   }
 };
 </script>
@@ -63,7 +86,11 @@ export default {
   >
     <div class="title">
       <h2>{{ event.name }}</h2>
-      <p>{{ event.address }}</p>
+      <p>
+        <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
+        {{ event.state | state }}
+      </p>
+      <p class="address">{{ event.address }}</p>
     </div>
     <div class="games">
       <span v-for="(game, index) in games" :key="index">{{ game }}</span>
@@ -76,9 +103,17 @@ export default {
       <span v-if="this.live" class="live">Em progresso</span>
     </div>
     <div class="controls">
-      <router-link :to="'/sobre?id=' + event.id">
-        <VButton class="outline light lg">Ver Mais</VButton>
+      <router-link :to="'/event?id=' + event.id">
+        <VButton class="light lg"
+          ><font-awesome-icon :icon="['fas', 'plus']" /> Ver Mais</VButton
+        >
       </router-link>
+      <a v-if="this.streamUrl !== ''" :href="this.streamUrl">
+        <VButton class="twitch lg"
+          ><font-awesome-icon :icon="['fas', 'play']" />
+          {{ this.streams.length > 1 ? "Multitwitch" : "Stream" }}</VButton
+        >
+      </a>
     </div>
   </div>
 </template>
@@ -163,11 +198,20 @@ $event-bg: $bg1;
 .event .controls {
   justify-self: flex-end;
   align-self: stretch;
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  display: grid;
+  grid-gap: $spacer/2;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  padding-bottom: $spacer;
+
+  button {
+    display: block;
+    width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .event .live {
@@ -177,5 +221,9 @@ $event-bg: $bg1;
   margin-top: $spacer/2;
   display: inline-block !important;
   border-radius: 0.25rem;
+}
+
+.event .address {
+  font-size: 0.8rem;
 }
 </style>

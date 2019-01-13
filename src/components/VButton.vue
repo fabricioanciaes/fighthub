@@ -18,7 +18,8 @@ export default {
 @import "../assets/styles/_variables.scss";
 
 button {
-  border: none;
+  text-decoration: none;
+  border: 1px solid;
   display: inline-block;
   padding: 0.25rem 0.8rem;
   border-radius: 0.25rem;
@@ -49,6 +50,13 @@ button:hover {
 
 .outline.light {
   @include button-outline($light);
+}
+
+.twitch {
+  @include button-bg($twitch);
+}
+.outline.twitch {
+  @include button-outline($twitch);
 }
 
 .lg {
