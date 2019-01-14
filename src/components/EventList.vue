@@ -14,7 +14,7 @@ export default {
       error: false,
       errorMsg: "",
       apiUrl:
-        "http://fighthub-api.herokuapp.com/events?_limit=30&_sort=dateStart:ASC"
+        'https://fighthub-api.herokuapp.com/graphql?query={events(limit: 50, sort: "dateStart:asc", where: {dateEnd_gt: "2019-01-14T15:08:28.244Z"}) {name,address,state,dateStart,dateEnd,games,links,stream,_id,}}'
     };
   },
   methods: {
@@ -30,11 +30,10 @@ export default {
     fetchEvents: function() {
       this.loading = true;
       fetch(this.apiUrl)
-        .then(this.handleErrors)
         .then(response => response.json())
         .then(result => {
           this.loading = false;
-          this.events = result;
+          this.events = result.data.events;
         })
         .catch(result => {
           this.loading = false;
@@ -66,7 +65,7 @@ export default {
           <VButton class="accent lg">Veja Como Contribuir</VButton>
         </router-link>
       </div>
-      <EventCard v-for="event in events" :key="event.id" :event="event" />
+      <EventCard v-for="event in events" :key="event._id" :event="event" />
     </div>
   </div>
 </template>

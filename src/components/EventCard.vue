@@ -98,7 +98,7 @@ export default {
       </span>
     </div>
     <div class="controls">
-      <router-link :to="'/event/' + event.id">
+      <router-link :to="'/event/' + event._id">
         <VButton class="accent lg"
           ><font-awesome-icon :icon="['fas', 'plus']" /> Ver Mais</VButton
         >

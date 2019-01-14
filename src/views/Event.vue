@@ -69,6 +69,7 @@ export default {
       event: {},
       loading: false,
       error: false,
+      errorMsg: "",
       links: "",
       streams: "",
       games: ""
@@ -77,20 +78,21 @@ export default {
   methods: {
     handleErrors: function(response) {
       if (!response.ok) {
-        throw Error(
-          "Erro ao pegar informações do servidor: " + response.statusText
-        );
+        this.errorMsg = response.statusText;
+        throw Error("Erro ao pegar informações do servidor: ");
       }
       return response;
     },
     fetchEvent: function() {
       this.loading = true;
-      fetch(`http://fighthub-api.herokuapp.com/events?id=${this.id}`)
-        .then(this.handleErrors)
+      console.log("http://fighthub-api.herokuapp.com/events?id=" + this.id);
+      fetch("http://fighthub-api.herokuapp.com/events?id=" + this.id)
+        .then(response => this.handleErrors(response))
         .then(response => response.json())
-        .then(result => {
+        .then(response => {
+          this.event = response[0];
           this.loading = false;
-          this.event = result[0];
+          this.error = false;
 
           this.streams = this.event.stream.split(",").map(item => item.trim());
           this.links = this.event.links.split(",").map(item => item.trim());
@@ -102,7 +104,7 @@ export default {
         });
     }
   },
-  created() {
+  mounted() {
     this.fetchEvent();
   }
 };
