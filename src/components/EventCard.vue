@@ -60,8 +60,6 @@ export default {
         return result;
       }, []);
 
-      console.log(multistream);
-
       if (this.streams.length == 1) {
         this.streamUrl = this.streams[0];
       }
@@ -80,10 +78,7 @@ export default {
 </script>
 
 <template>
-  <div
-    v-bind:class="['event', event.imgUrl !== '' ? 'has-img' : '']"
-    v-bind:style="{ backgroundImage: 'url(' + event.imgUrl + ')' }"
-  >
+  <div class="event">
     <div class="title">
       <h2>{{ event.name }}</h2>
       <p>
@@ -96,15 +91,15 @@ export default {
       <span v-for="(game, index) in games" :key="index">{{ game }}</span>
     </div>
     <div class="date">
+      <span v-if="this.live" class="live">Em progresso</span>
       <span>
         <font-awesome-icon :icon="['far', 'calendar']" />
         {{ this.dateString }}
       </span>
-      <span v-if="this.live" class="live">Em progresso</span>
     </div>
     <div class="controls">
-      <router-link :to="'/event?id=' + event.id">
-        <VButton class="light lg"
+      <router-link :to="'/event/' + event.id">
+        <VButton class="accent lg"
           ><font-awesome-icon :icon="['fas', 'plus']" /> Ver Mais</VButton
         >
       </router-link>
@@ -121,7 +116,7 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/styles/_variables.scss";
 
-$event-bg: $bg1;
+$event-bg: $cardbg;
 
 .event {
   display: flex;
@@ -135,7 +130,7 @@ $event-bg: $bg1;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
 }
 
@@ -176,9 +171,10 @@ $event-bg: $bg1;
 }
 
 .event .games {
-  $games: $light;
-
+  $games: color-contrast($cardbg, $dark, $light);
+  flex-grow: 1;
   display: flex;
+  align-items: flex-start;
 
   span {
     padding: $spacer/8 $spacer/2;
@@ -207,6 +203,7 @@ $event-bg: $bg1;
   button {
     display: block;
     width: 100%;
+    font-size: 0.8rem;
   }
 
   a {
@@ -218,7 +215,7 @@ $event-bg: $bg1;
   background-color: $success;
   color: color-contrast($success, $dark, $light);
   padding: $spacer/8 $spacer/2;
-  margin-top: $spacer/2;
+  margin-bottom: $spacer/2;
   display: inline-block !important;
   border-radius: 0.25rem;
 }

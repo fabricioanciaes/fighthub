@@ -7,6 +7,7 @@ Vue.use(Router);
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
+  linkExactActiveClass: "is-active",
   routes: [
     {
       path: "/",
@@ -23,7 +24,7 @@ export default new Router({
         import(/* webpackChunkName: "sobre" */ "./views/Sobre.vue")
     },
     {
-      path: "/event",
+      path: "/event/:id",
       name: "event",
       component: () =>
         import(/* webpackChunkName: "event" */ "./views/Event.vue")

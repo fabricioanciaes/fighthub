@@ -1,14 +1,38 @@
 <script>
 export default {
-  name: "VLoader"
+  name: "VLoader",
+  props: ["disclaimer"],
+  data() {
+    return {
+      showDisclaimer: false
+    };
+  },
+  mounted() {
+    if (this.disclaimer) {
+      setTimeout(() => {
+        this.showDisclaimer = true;
+      }, 3000);
+    }
+  }
 };
 </script>
 
 <template>
-  <div class="loading"></div>
+  <div class="div">
+    <div class="loader">Loading...</div>
+    <div v-if="this.showDisclaimer" class="disclaimer">
+      <h2>Demorando muito?</h2>
+      <p>
+        Os servidores do fighthub dormem quando não estão sendo utilizados.<br />Apenas
+        espere um pouco para que os servidores acordem
+      </p>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+@import "../assets/styles/_variables.scss";
+
 .loader,
 .loader:before,
 .loader:after {
@@ -17,11 +41,11 @@ export default {
   height: 2.5em;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation: load7 1.8s infinite ease-in-out;
-  animation: load7 1.8s infinite ease-in-out;
+  -webkit-animation: load7 1.8s infinite $timing;
+  animation: load7 1.8s infinite $timing;
 }
 .loader {
-  color: #ffffff;
+  color: $loaderbg;
   font-size: 10px;
   margin: 80px auto;
   position: relative;
@@ -64,6 +88,24 @@ export default {
   }
   40% {
     box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.disclaimer {
+  opacity: 0;
+  animation: disclaimer 0.6s $timing;
+  animation-fill-mode: forwards;
+  text-align: center;
+}
+
+@keyframes disclaimer {
+  0% {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

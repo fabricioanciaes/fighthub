@@ -1,20 +1,29 @@
-$bg1: #222;
-$bg2: #121314;
-$accent: #537DAF;
+$bg1: #181721;
+$bg2: #0a0a10;
+$cardbg: #181721;
+$accent: #1ba593;
 $light: rgba(255,255,255,0.8);
 $dark: rgba(0,0,0,0.7);
+$loaderbg: $light;
 
-$success: #84CA6D;
+$success: #71df71;
 $warning: #FFE477;
 $danger: #E35A5A;
 
 $twitch: #6441A4;
 $discord: #7289DA;
 
-$font-stack: 'Segoe UI', sans-serif;
+$font-stack: 'Poppins','Segoe UI', sans-serif;
+$monospace: monospace;
 $spacer: 1rem;
 
 $timing: cubic-bezier(.55, 0, .1, 1);
+
+// Markdown
+
+$codebg: rgba(255,255,255,0.8);
+$hr: rgba(255,255,255,0.3);
+$tablebg: $bg2;
 
 // Material Shadows
 

@@ -1,15 +1,20 @@
 <script>
 import EventCard from "@/components/EventCard.vue";
+import VLoader from "@/components/VLoader.vue";
+import VError from "@/components/VError.vue";
+import VButton from "@/components/VButton.vue";
 
 export default {
   name: "EventList",
-  components: { EventCard },
+  components: { EventCard, VLoader, VError, VButton },
   data() {
     return {
       events: [],
       loading: false,
       error: false,
-      apiUrl: "http://fighthub-api.herokuapp.com/events?_limit=30"
+      errorMsg: "",
+      apiUrl:
+        "http://fighthub-api.herokuapp.com/events?_limit=30&_sort=dateStart:ASC"
     };
   },
   methods: {
@@ -31,9 +36,10 @@ export default {
           this.loading = false;
           this.events = result;
         })
-        .catch(() => {
+        .catch(result => {
           this.loading = false;
           this.error = true;
+          this.errorMsg = result.toString();
         });
     }
   },
@@ -46,13 +52,20 @@ export default {
 <template>
   <div>
     <div class="container error-wrapper">
-      <div v-if="loading"><VLoader /></div>
-      <div v-if="error">
-        Erro! Não conseguimos nos comunicar com o servidor, por favor tente de
-        novo mais tarde.
-      </div>
+      <div v-if="loading"><VLoader disclaimer="true" /></div>
+      <VError v-if="error" v-bind:error="this.errorMsg" />
     </div>
     <div class="container wrapper" v-if="!error">
+      <div
+        class="no-events"
+        v-if="this.events.length <= 0 && this.loading === false"
+      >
+        <h1>Não há eventos acontecendo</h1>
+        <p>Quer seu evento aqui?</p>
+        <router-link to="/contribua">
+          <VButton class="accent lg">Veja Como Contribuir</VButton>
+        </router-link>
+      </div>
       <EventCard v-for="event in events" :key="event.id" :event="event" />
     </div>
   </div>
@@ -64,7 +77,35 @@ export default {
 .wrapper {
   margin-top: $spacer;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  grid-gap: $spacer/2;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-gap: $spacer;
+}
+
+.container {
+  max-width: 1366px;
+  margin-bottom: $spacer * 2;
+}
+
+.no-events {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: $bg1;
+  padding: $spacer;
+  grid-column: 1/-1;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  @include shadow(21);
+  text-align: center;
+
+  h1 {
+    font-weight: 100 !important;
+  }
+
+  p {
+    margin-bottom: $spacer;
+  }
 }
 </style>

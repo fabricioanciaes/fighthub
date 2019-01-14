@@ -26,6 +26,7 @@ button {
   @include shadow(1);
   transition: all 0.3s;
   transition-timing-function: $timing;
+  font-family: $font-stack;
 }
 
 button:hover {

@@ -1,3 +1,12 @@
 <template>
-  <div class="about"><h1>This is an about page</h1></div>
+  <div class="about page">
+    <div class="container"><h1>Sobre</h1></div>
+  </div>
 </template>
+
+<script>
+export default {
+  name: "sobre",
+  components: {}
+};
+</script>
