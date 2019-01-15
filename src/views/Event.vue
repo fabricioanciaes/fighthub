@@ -10,7 +10,9 @@
         :style="{ backgroundImage: 'url(' + event.imgUrl + ')' }"
       >
         <div class="container">
+          <event-type :eventType="event.tipoEvento" />
           <h1>{{ this.event.name }}</h1>
+
           <ul class="games">
             <li v-for="(game, index) in games" :key="index">{{ game }}</li>
           </ul>
@@ -19,32 +21,43 @@
             <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
             {{ this.event.state | state }}
           </h6>
+          <a
+            class="inscricao"
+            v-if="this.event.inscricao"
+            :href="this.event.inscricao"
+          >
+            <VButton class="light lg">Inscreva-se</VButton>
+          </a>
         </div>
       </section>
       <div class="container single-event">
         <div class="info">
-          <h2>Links Importantes:</h2>
-          <ul class="links">
-            <li v-for="link in links" :key="link.index">
-              <a :href="link">
-                <VButton class="accent"
-                  >{{ link.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "") }}
-                </VButton>
-              </a>
-            </li>
-          </ul>
+          <div v-if="this.event.links !== ''">
+            <h2>Links Importantes:</h2>
+            <ul class="links">
+              <li v-for="link in links" :key="link.index">
+                <a :href="link">
+                  <VButton class="accent"
+                    >{{ link.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "") }}
+                  </VButton>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-          <h2>Streams:</h2>
-          <ul class="streams">
-            <li v-for="stream in streams" :key="stream.index">
-              <a :href="stream">
-                <VButton class="twitch"
-                  ><font-awesome-icon :icon="['fas', 'play']" />
-                  {{ stream.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "") }}
-                </VButton>
-              </a>
-            </li>
-          </ul>
+          <div v-if="this.event.stream !== ''">
+            <h2>Streams:</h2>
+            <ul class="streams">
+              <li v-for="stream in streams" :key="stream.index">
+                <a :href="stream">
+                  <VButton class="twitch"
+                    ><font-awesome-icon :icon="['fas', 'play']" />
+                    {{ stream.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "") }}
+                  </VButton>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
         <vue-markdown class="markdown">{{
           this.event.desc.replace(/"/g, "")
@@ -59,10 +72,11 @@ import VueMarkdown from "vue-markdown";
 import VLoader from "@/components/VLoader.vue";
 import VError from "@/components/VError.vue";
 import VButton from "@/components/VButton.vue";
+import EventType from "@/components/EventType.vue";
 
 export default {
   name: "event",
-  components: { VueMarkdown, VLoader, VError, VButton },
+  components: { VueMarkdown, VLoader, VError, VButton, EventType },
   data: function() {
     return {
       id: this.$route.params.id,
@@ -222,5 +236,14 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+.hero .inscricao {
+  display: block;
+  margin-top: $spacer;
+}
+
+.hero .event-type {
+  margin-bottom: $spacer/2;
 }
 </style>

@@ -14,7 +14,9 @@ export default {
       error: false,
       errorMsg: "",
       apiUrl:
-        'https://fighthub-api.herokuapp.com/graphql?query={events(limit: 50, sort: "dateStart:asc", where: {dateEnd_gt: "2019-01-14T15:08:28.244Z"}) {name,address,state,dateStart,dateEnd,games,links,stream,_id,}}'
+        'https://fighthub-api.herokuapp.com/graphql?query={events(limit: 50, sort: "dateStart:asc", where: {dateEnd_gt: "2019-01-14T15:08:28.244Z"}) {name,address,state,dateStart,dateEnd,games,links,stream,_id,tipoEvento}}',
+      filterState: "Todos",
+      filterType: "Todos"
     };
   },
   methods: {
@@ -44,6 +46,22 @@ export default {
   },
   created() {
     return this.fetchEvents();
+  },
+  computed: {
+    filteredEvents() {
+      if (this.filterState === "Todos" && this.filterType === "Todos") {
+        return this.events;
+      } else {
+        return this.events.filter(event => {
+          return (
+            (this.filterState === "Todos" ||
+              event.state === this.filterState) &&
+            (this.filterType === "Todos" ||
+              event.tipoEvento === this.filterType)
+          );
+        });
+      }
+    }
   }
 };
 </script>
@@ -57,7 +75,7 @@ export default {
     <div class="container wrapper" v-if="!error">
       <div
         class="no-events"
-        v-if="this.events.length <= 0 && this.loading === false"
+        v-if="filteredEvents.length <= 0 && this.loading === false"
       >
         <h1>Não há eventos acontecendo</h1>
         <p>Quer seu evento aqui?</p>
@@ -65,7 +83,11 @@ export default {
           <VButton class="accent lg">Veja Como Contribuir</VButton>
         </router-link>
       </div>
-      <EventCard v-for="event in events" :key="event._id" :event="event" />
+      <EventCard
+        v-for="event in filteredEvents"
+        :key="event._id"
+        :event="event"
+      />
     </div>
   </div>
 </template>

@@ -30,6 +30,15 @@ export default new Router({
         import(/* webpackChunkName: "sobre" */ "./views/Sobre.vue")
     },
     {
+      path: "/contribua",
+      name: "contribua",
+      // route level code-splitting
+      // this generates a separate chunk (sobre.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "sobre" */ "./views/Contribua.vue")
+    },
+    {
       path: "/event/:id",
       name: "event",
       component: () =>

@@ -4,6 +4,7 @@ import formatRelative from "date-fns/formatRelative";
 import { ptBR } from "date-fns/locale";
 
 import VButton from "@/components/VButton.vue";
+import EventType from "@/components/EventType.vue";
 
 export default {
   name: "EventCard",
@@ -19,7 +20,8 @@ export default {
     };
   },
   components: {
-    VButton
+    VButton,
+    EventType
   },
   methods: {
     isLive: function() {
@@ -81,11 +83,12 @@ export default {
   <div class="event">
     <div class="title">
       <h2>{{ event.name }}</h2>
-      <p>
+      <div v-if="event.tipoEvento !== 'Online'">
         <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
         {{ event.state | state }}
-      </p>
-      <p class="address">{{ event.address }}</p>
+        <address class="address">{{ event.address }}</address>
+      </div>
+      <event-type :eventType="event.tipoEvento" />
     </div>
     <div class="games">
       <span v-for="(game, index) in games" :key="index">{{ game }}</span>
@@ -222,5 +225,9 @@ $event-bg: $cardbg;
 
 .event .address {
   font-size: 0.8rem;
+}
+
+.event-type {
+  margin-top: $spacer/4;
 }
 </style>
