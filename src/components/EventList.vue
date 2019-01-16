@@ -1,4 +1,5 @@
 <script>
+import EventFilter from "@/components/EventFilter.vue";
 import EventCard from "@/components/EventCard.vue";
 import VLoader from "@/components/VLoader.vue";
 import VError from "@/components/VError.vue";
@@ -6,7 +7,7 @@ import VButton from "@/components/VButton.vue";
 
 export default {
   name: "EventList",
-  components: { EventCard, VLoader, VError, VButton },
+  components: { EventCard, VLoader, VError, VButton, EventFilter },
   data() {
     return {
       events: [],
@@ -68,11 +69,13 @@ export default {
 
 <template>
   <div>
+    
     <div class="container error-wrapper">
       <div v-if="loading"><VLoader disclaimer="true" /></div>
       <VError v-if="error" v-bind:error="this.errorMsg" />
     </div>
     <div class="container wrapper" v-if="!error">
+      
       <div
         class="no-events"
         v-if="filteredEvents.length <= 0 && this.loading === false"
@@ -83,6 +86,7 @@ export default {
           <VButton class="accent lg">Veja Como Contribuir</VButton>
         </router-link>
       </div>
+      <event-filter class="event-filter"/>
       <EventCard
         v-for="event in filteredEvents"
         :key="event._id"
@@ -128,5 +132,13 @@ export default {
   p {
     margin-bottom: $spacer;
   }
+
+  
+}
+
+.event-filter {
+  width:100%;
+  max-width:420px;
+  justify-self: end;
 }
 </style>
