@@ -16,8 +16,10 @@ export default {
       errorMsg: "",
       apiUrl:
         'https://fighthub-api.herokuapp.com/graphql?query={events(limit: 50, sort: "dateStart:asc", where: {dateEnd_gt: "2019-01-14T15:08:28.244Z"}) {name,address,state,dateStart,dateEnd,games,links,stream,_id,tipoEvento}}',
-      filterState: "Todos",
-      filterType: "Todos"
+      filters: {
+        state: "Todos",
+        type: "Todos"
+      }
     };
   },
   methods: {
@@ -50,15 +52,15 @@ export default {
   },
   computed: {
     filteredEvents() {
-      if (this.filterState === "Todos" && this.filterType === "Todos") {
+      if (this.filters.state === "Todos" && this.filters.type === "Todos") {
         return this.events;
       } else {
         return this.events.filter(event => {
           return (
-            (this.filterState === "Todos" ||
-              event.state === this.filterState) &&
-            (this.filterType === "Todos" ||
-              event.tipoEvento === this.filterType)
+            (this.filters.state === "Todos" ||
+              event.state === this.filters.state) &&
+            (this.filters.type === "Todos" ||
+              event.tipoEvento === this.filters.type)
           );
         });
       }
@@ -74,7 +76,7 @@ export default {
       <div v-if="loading"><VLoader disclaimer="true" /></div>
       <VError v-if="error" v-bind:error="this.errorMsg" />
     </div>
-    <div class="container wrapper" v-if="!error">
+    <div class="container wrapper" v-if="!error && !loading">
       
       <div
         class="no-events"
@@ -86,7 +88,7 @@ export default {
           <VButton class="accent lg">Veja Como Contribuir</VButton>
         </router-link>
       </div>
-      <event-filter class="event-filter"/>
+      <event-filter class="event-filter" :filters="this.filters"/>
       <EventCard
         v-for="event in filteredEvents"
         :key="event._id"
