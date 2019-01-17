@@ -81,8 +81,9 @@ export default {
       <div v-if="loading"><VLoader disclaimer="true" /></div>
       <VError v-if="error" v-bind:error="this.errorMsg" />
     </div>
-    <div class="container wrapper" v-if="!error && !loading">
+    <div class="container" v-if="!error && !loading">
       <event-filter class="event-filter" :filters="this.filters" @filterchange="update"/>
+      <transition name="errorContainer" enter-active-class="cardIn" leave-active-class="cardOut">
       <div
         class="no-events"
         v-if="filteredEvents.length <= 0 && this.loading === false"
@@ -93,13 +94,15 @@ export default {
           <VButton class="accent lg">Veja Como Contribuir</VButton>
         </router-link>
       </div>
-      
+      </transition>
+      <transition-group name="cardlist" enter-active-class="cardIn" leave-active-class="cardOut" move-class="cardMove" class="container no-spacing wrapper card-container">
       <EventCard
         v-for="event in filteredEvents"
         :key="event._id"
         :event="event"
-        
+        class="event-card"
       />
+      </transition-group>
     </div>
   </div>
 </template>
@@ -132,6 +135,9 @@ export default {
   margin-right: auto;
   @include shadow(21);
   text-align: center;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
 
   h1 {
     font-weight: 100 !important;
@@ -140,8 +146,6 @@ export default {
   p {
     margin-bottom: $spacer;
   }
-
-  
 }
 
 .event-filter {
@@ -149,4 +153,54 @@ export default {
   max-width:420px;
   justify-self: end;
 }
+
+.card-container {
+  position: relative;
+  transition:all 0.3s $timing;
+
+  span {
+    transition:all 0.3s $timing;
+  }
+}
+
+.event-card {
+  transition: all 0.3s $timing;
+}
+
+.cardIn, .cardOut {
+  animation-duration: 0.3s;
+  animation-timing-function: $timing;
+  transition: all 0.3s $timing;
+  backface-visibility: hidden;
+}
+
+.cardIn {
+  animation-name: cardIn
+}
+.cardOut {
+  animation-name: cardOut;
+  position:absolute;
+}
+
+.cardMove {
+  transition: all 0.3s $timing;
+}
+
+@keyframes cardIn {
+  0% {
+    opacity:0; 
+  }
+  100% {
+    opacity:1;
+  }
+}
+@keyframes cardOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
 </style>

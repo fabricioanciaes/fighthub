@@ -27,13 +27,13 @@ export default {
       :disabled="filter.type === 'Online'"
       :value="filter.type === 'Online' ? filter.state = 'Todos' : filter.state"
       >
-        <option v-for="state in states" :value="state">{{state}}</option>
+        <option v-for="(state, index) in states" :value="state" :key="index">{{state}}</option>
       </select>
     </div>
     <div class="filter">
       <h5>Tipo de Evento:</h5>
       <select v-model="filter.type" @click="onChange">
-        <option v-for="type in eventTypes" :value="type">{{type}}</option>
+        <option v-for="(type, index) in eventTypes" :value="type" :key="index">{{type}}</option>
       </select>
     </div>
   </div>
