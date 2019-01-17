@@ -45,6 +45,11 @@ export default {
           this.error = true;
           this.errorMsg = result.toString();
         });
+    },
+
+    update: function(event) {
+      console.log(event);
+      this.filters = Object.assign(event)
     }
   },
   created() {
@@ -65,7 +70,7 @@ export default {
         });
       }
     }
-  }
+  },
 };
 </script>
 
@@ -77,7 +82,7 @@ export default {
       <VError v-if="error" v-bind:error="this.errorMsg" />
     </div>
     <div class="container wrapper" v-if="!error && !loading">
-      
+      <event-filter class="event-filter" :filters="this.filters" @filterchange="update"/>
       <div
         class="no-events"
         v-if="filteredEvents.length <= 0 && this.loading === false"
@@ -88,11 +93,12 @@ export default {
           <VButton class="accent lg">Veja Como Contribuir</VButton>
         </router-link>
       </div>
-      <event-filter class="event-filter" :filters="this.filters"/>
+      
       <EventCard
         v-for="event in filteredEvents"
         :key="event._id"
         :event="event"
+        
       />
     </div>
   </div>

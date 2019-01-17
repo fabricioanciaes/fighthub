@@ -10,6 +10,11 @@ export default {
   name: "home",
   components: {
     EventList
+  },
+  methods: {
+    update: function() {
+      alert("ayy lmao");
+    }
   }
 };
 </script>

@@ -1,19 +1,21 @@
 <script>
 export default {
   name: "EventFilter",
-  props: {
-    filters: Object
-  },
   data() {
     return {
       eventTypes: ["Todos", "Online", "Offline", "Major"],
       states: ["Todos","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"],
       filter: {
-        state:"",
-        type:""
+        state: "Todos",
+        type: "Todos"
       }
     }
   },
+  methods: {
+    onChange: function() {
+      this.$emit('filterchange', this.filter)
+    }
+  }
 }
 </script>
 
@@ -21,16 +23,16 @@ export default {
   <div class="filters">
     <div class="filter">
       <h5>Estado:</h5>
-      <select :default="states[1]" v-model="this.filters.state"
-      :disabled="this.filters.type === 'Online'"
-      :value="this.filters.type === 'Online' ? this.filters.state = 'Todos' : this.filters.state"
+      <select :default="states[1]" v-model="filter.state" @click="onChange"
+      :disabled="filter.type === 'Online'"
+      :value="filter.type === 'Online' ? filter.state = 'Todos' : filter.state"
       >
         <option v-for="state in states" :value="state">{{state}}</option>
       </select>
     </div>
     <div class="filter">
       <h5>Tipo de Evento:</h5>
-      <select v-model="this.filters.type">
+      <select v-model="filter.type" @click="onChange">
         <option v-for="type in eventTypes" :value="type">{{type}}</option>
       </select>
     </div>
