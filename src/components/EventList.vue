@@ -14,8 +14,9 @@ export default {
       loading: false,
       error: false,
       errorMsg: "",
-      apiUrl:
-        'https://fighthub-api.herokuapp.com/graphql?query={events(limit: 50, sort: "dateStart:asc", where: {dateEnd_gt: "2019-01-14T15:08:28.244Z"}) {name,address,state,dateStart,dateEnd,games,links,stream,_id,tipoEvento}}',
+      apiUrl: `https://fighthub-api.herokuapp.com/graphql?query={events(limit: 50, sort: "dateStart:asc", where: {dateEnd_gt: "${new Date(
+        Date.now()
+      ).toISOString()}"}) {name,address,state,dateStart,dateEnd,games,links,stream,_id,tipoEvento}}`,
       filters: {
         state: "Todos",
         type: "Todos"
@@ -49,7 +50,7 @@ export default {
 
     update: function(event) {
       console.log(event);
-      this.filters = Object.assign(event)
+      this.filters = Object.assign(event);
     }
   },
   created() {
@@ -70,38 +71,51 @@ export default {
         });
       }
     }
-  },
+  }
 };
 </script>
 
 <template>
   <div>
-    
     <div class="container error-wrapper">
       <div v-if="loading"><VLoader disclaimer="true" /></div>
       <VError v-if="error" v-bind:error="this.errorMsg" />
     </div>
     <div class="container" v-if="!error && !loading">
-      <event-filter class="event-filter" :filters="this.filters" @filterchange="update"/>
-      <transition name="errorContainer" enter-active-class="cardIn" leave-active-class="cardOut">
-      <div
-        class="no-events"
-        v-if="filteredEvents.length <= 0 && this.loading === false"
-      >
-        <h1>Não há eventos acontecendo</h1>
-        <p>Quer seu evento aqui?</p>
-        <router-link to="/contribua">
-          <VButton class="accent lg">Veja Como Contribuir</VButton>
-        </router-link>
-      </div>
-      </transition>
-      <transition-group name="cardlist" enter-active-class="cardIn" leave-active-class="cardOut" move-class="cardMove" class="container no-spacing wrapper card-container">
-      <EventCard
-        v-for="event in filteredEvents"
-        :key="event._id"
-        :event="event"
-        class="event-card"
+      <event-filter
+        class="event-filter"
+        :filters="this.filters"
+        @filterchange="update"
       />
+      <transition
+        name="errorContainer"
+        enter-active-class="cardIn"
+        leave-active-class="cardOut"
+      >
+        <div
+          class="no-events"
+          v-if="filteredEvents.length <= 0 && this.loading === false"
+        >
+          <h1>Não há eventos acontecendo</h1>
+          <p>Quer seu evento aqui?</p>
+          <router-link to="/contribua">
+            <VButton class="accent lg">Veja Como Contribuir</VButton>
+          </router-link>
+        </div>
+      </transition>
+      <transition-group
+        name="cardlist"
+        enter-active-class="cardIn"
+        leave-active-class="cardOut"
+        move-class="cardMove"
+        class="container no-spacing wrapper card-container"
+      >
+        <EventCard
+          v-for="event in filteredEvents"
+          :key="event._id"
+          :event="event"
+          class="event-card"
+        />
       </transition-group>
     </div>
   </div>
@@ -149,17 +163,17 @@ export default {
 }
 
 .event-filter {
-  width:100%;
-  max-width:420px;
+  width: 100%;
+  max-width: 420px;
   justify-self: end;
 }
 
 .card-container {
   position: relative;
-  transition:all 0.3s $timing;
+  transition: all 0.3s $timing;
 
   span {
-    transition:all 0.3s $timing;
+    transition: all 0.3s $timing;
   }
 }
 
@@ -167,7 +181,8 @@ export default {
   transition: all 0.3s $timing;
 }
 
-.cardIn, .cardOut {
+.cardIn,
+.cardOut {
   animation-duration: 0.3s;
   animation-timing-function: $timing;
   transition: all 0.3s $timing;
@@ -175,11 +190,11 @@ export default {
 }
 
 .cardIn {
-  animation-name: cardIn
+  animation-name: cardIn;
 }
 .cardOut {
   animation-name: cardOut;
-  position:absolute;
+  position: absolute;
 }
 
 .cardMove {
@@ -188,19 +203,18 @@ export default {
 
 @keyframes cardIn {
   0% {
-    opacity:0; 
+    opacity: 0;
   }
   100% {
-    opacity:1;
+    opacity: 1;
   }
 }
 @keyframes cardOut {
   0% {
-    opacity:1;
+    opacity: 1;
   }
   100% {
-    opacity:0;
+    opacity: 0;
   }
 }
-
 </style>
