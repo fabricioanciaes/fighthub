@@ -1,0 +1,252 @@
+@import '_variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-stack;
+  background-color: $bg2;
+  color: color-contrast($bg2, $dark, $light);
+}
+
+a {
+  color:$accent;
+}
+
+// Helper classes
+
+.container-fluid,
+.container {
+  width: calc(100% - #{$spacer*2});
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.container.no-spacing {
+  width:100%;
+}
+
+.container {
+  max-width:960px;
+}
+
+.markdown {
+  // Links
+  word-wrap: break-word;
+
+  a {
+    color: $accent;
+    transition: color 0.3s $timing;
+    &:hover {
+      color: color-contrast($accent, darken($accent,25%), lighten($accent,25%))
+    }
+  }
+
+  h1 a, h2 a, h3 a, h4 a, h5 a, h6 {
+    text-decoration:none !important;
+  }
+
+  // General Typography
+
+  p {margin-bottom: 1.25em;}
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 2.75rem 0 1rem;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 3.052em;
+  }
+
+  h2 {font-size: 2.441em;}
+
+  h3 {font-size: 1.953em;}
+
+  h4 {font-size: 1.563em;}
+
+  h5 {font-size: 1.25em;}
+
+  small, .text_small, h6 {font-size: 0.8em;}
+
+  // Lists
+
+  ul, ol {
+    padding-left:20px;
+    margin-bottom: $spacer;
+  }
+
+  ul li, ol li {
+    margin-bottom:$spacer;
+  }
+
+  // Code blocks
+
+  code, kbd, pre {
+    font-family: $monospace;
+    font-size: 1.1em;
+    line-height:1.6;
+    white-space: pre-wrap;
+    white-space: moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    max-width:100%;
+  }
+
+  pre {
+    background-color: $codebg;
+    color: color-contrast($codebg, $dark, $light);
+    padding: $spacer;
+    border-radius:0.25rem;
+    margin-bottom:$spacer;
+    @include shadow(21);
+
+    
+  }
+
+  pre code {
+    background:none;
+    margin:0;
+    padding:0;
+  }
+
+  code {
+    background-color: $codebg;
+    color: color-contrast($codebg, $dark, $light);
+    padding: $spacer/4;
+    border-radius:0.25rem;
+    margin:0 $spacer/4;
+  }
+
+  // Definition Lists
+
+  dl {
+    padding: 0;
+  }
+  
+  dl dt {
+    padding: 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+  }
+  
+  dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+
+  // hr lines
+
+  hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+  }
+
+  hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid $hr;
+  }
+
+  hr::before {
+    display: table;
+    content: "";
+  }
+
+  hr::after {
+    display: table;
+    clear: both;
+    content: "";
+  }
+
+  hr {
+    height: 1px;
+    padding: 0;
+    margin: 24px 0;
+    background-color: $hr;
+    border: 0;
+  }
+
+  hr {
+    border-bottom-color: $hr;
+  }
+
+  // Tables
+
+  table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+
+    margin-bottom:$spacer;
+
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  td,
+  th {
+    padding: 0;
+  } 
+
+  table th {
+    background-color: color-contrast($tablebg, darken($tablebg, 10%), lighten($tablebg, 10%));
+    font-weight: 600;
+  }
+
+  table th,
+  table td {
+    padding: 6px 13px;
+    border: 1px solid;
+    border-color: color-contrast($tablebg, darken($tablebg, 15%), lighten($tablebg, 15%));
+  }
+
+  table tr {
+    background-color: color-contrast($tablebg, darken($tablebg, 4%), lighten($tablebg, 4%));
+    border-top: 1px solid;
+    border-color: color-contrast($tablebg, darken($tablebg, 15%), lighten($tablebg, 15%));
+  }
+
+  table tr:nth-child(2n) {
+    background-color: color-contrast($tablebg, darken($tablebg, 8%), lighten($tablebg, 8%));
+  }
+
+  // Images
+
+  img {
+    max-width: 100%;
+    box-sizing: content-box;
+  }
+
+  img[align=right] {
+    padding-left: 20px;
+  }
+  
+  img[align=left] {
+    padding-right: 20px;
+  }
+
+  // Marked text
+
+  mark {
+    padding: $spacer/4 $spacer/2;
+    background-color: $accent;
+    color: color-contrast($accent, $dark, $light);
+  }
+
+}
