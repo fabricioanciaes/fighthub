@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.87ded2742fe6369509199c92ff38417a.js"
+  "/precache-manifest.4fb4d0eb65d004069724ff96e2c9f54f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "fighthub"});

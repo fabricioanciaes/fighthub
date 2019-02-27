@@ -49,7 +49,6 @@ export default {
     },
 
     update: function(event) {
-      console.log(event);
       this.filters = Object.assign(event);
     }
   },
